@@ -34,7 +34,8 @@ const App = props => {
   }
 
   const style = {
-    backgroundColor: 'white',
+    backgroundColor: 'green',
+    color: 'white',
     font: 'inherit',
     border: '1px solid blue',
     padding: '8px',
@@ -45,9 +46,12 @@ const App = props => {
     //const persons = personsState.persons.slice();
     const persons = [...personsState.persons]
     persons.splice(personIndex, 1);
-    setShowPersonsState({
+    console.log(persons);
+    console.log(personIndex);
+    setPersonsState({
       persons: persons
     })
+    console.log("deleting");
   }
 
   const togglePersonsHandler = () => {
@@ -71,12 +75,22 @@ const App = props => {
         })}
       </div>
     );
+    style.backgroundColor = 'red';
   }
-  
+
+  const classes = [];
+  if (personsState.persons.length <= 2) {
+    classes.push('red');
+  }
+  if (personsState.persons.length <= 1) {
+    classes.push('bold');
+  }
+
   return (
 
     <div className="App">
       <h1>Hi, I'm a React App</h1>
+      <p className={classes.join(' ')}>This app really works!</p>
       <button 
         style={style}
         onClick={togglePersonsHandler}>Toggle Show</button>
