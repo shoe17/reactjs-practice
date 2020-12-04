@@ -1,6 +1,21 @@
 import React, { useState } from 'react';
 import './App.css';
 import Person from './Person/Person';
+import Radium, { StyleRoot } from 'radium';
+import styled from 'styled-components';
+
+const StyledButton = styled.button`
+    background-color: ${props => props.alt ? 'red' : 'green'};
+    color: white;
+    font: inherit;
+    border: 1px solid blue;
+    padding: 8px;
+    cursor: pointer;
+    &:hover {
+      background-color: ${props => props.alt ? 'salmon' : 'lightgreen'};
+      color: black;
+    }
+`;
 
 const App = props => {
   const [personsState, setPersonsState] = useState({
@@ -39,7 +54,11 @@ const App = props => {
     font: 'inherit',
     border: '1px solid blue',
     padding: '8px',
-    cursor: 'pointer'
+    cursor: 'pointer',
+    ':hover': {
+      backgroundColor: 'lightgreen',
+      color: 'black'
+    }
   };
 
   const deletePersonHandler = (personIndex) => {
@@ -75,7 +94,13 @@ const App = props => {
         })}
       </div>
     );
-    style.backgroundColor = 'red';
+
+    // style.backgroundColor = 'red';
+    // style[':hover'] = {
+    //   backgroundColor: 'salmon',
+    //   color: 'black'
+    // }
+    
   }
 
   const classes = [];
@@ -87,13 +112,14 @@ const App = props => {
   }
 
   return (
-
     <div className="App">
       <h1>Hi, I'm a React App</h1>
       <p className={classes.join(' ')}>This app really works!</p>
-      <button 
-        style={style}
-        onClick={togglePersonsHandler}>Toggle Show</button>
+      <StyledButton 
+        alt={showPersonsState}
+        onClick={togglePersonsHandler}>
+          Toggle Show
+      </StyledButton>
       {persons}
     </div>
   );
