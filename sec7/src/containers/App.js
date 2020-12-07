@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import Person from './Person/Person';
+import Person from '../components/Persons/Person/Person';
 import classes from './App.module.css';
+import Persons from '../components/Persons/Persons';
+import Cockpit from '../components/Cockpit/Cockpit';
 
 const App = props => {
   const [personsState, setPersonsState] = useState({
@@ -65,47 +67,24 @@ const App = props => {
     )
   }
   let persons = null;
-
   if (showPersonsState) {
     persons = (
-      <div>
-        {personsState.persons.map((person, index) => {
-          return <Person 
-            click={() => deletePersonHandler(index)}
-            name={person.name} 
-            age={person.age}
-            key={person.id}
-            changed={(event) => nameChangeHandler(event, person.id)}/>
-        })}
-      </div>
+        <Persons 
+          persons={personsState.persons}
+          clicked={deletePersonHandler} 
+          changed={nameChangeHandler}
+        />
     );
-
-    // style.backgroundColor = 'red';
-    // style[':hover'] = {
-    //   backgroundColor: 'salmon',
-    //   color: 'black'
-    // }
-    
   }
 
-  const assignedClasses = [];
-  if (personsState.persons.length <= 2) {
-    assignedClasses.push(classes.red);
-  }
-  if (personsState.persons.length <= 1) {
-    assignedClasses.push(classes.bold);
-  }
 
   return (
     <div className={classes.App}>
-      <h1>Hi, I'm a React App</h1>
-      <p className={assignedClasses.join(' ')}>This app really works!</p>
-      <button
-        className={classes.Button}
-        alt={showPersonsState}
-        onClick={togglePersonsHandler}>
-          Toggle Show
-      </button>
+      <Cockpit
+        showPersons={showPersonsState}
+        persons={personsState.persons}
+        clicked={togglePersonsHandler}
+      />
       {persons}
     </div>
   );
