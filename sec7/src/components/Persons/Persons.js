@@ -1,6 +1,5 @@
 import React from 'react'
 import Person from './Person/Person';
-import AuthContext from '../../context/auth-context'
 
 const persons = (props) => 
     props.persons.map((person, index) => {
